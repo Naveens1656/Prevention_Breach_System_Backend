@@ -36,6 +36,10 @@ def log_in_background(score, breach, crack_time):
 # -----------------------------
 # ROUTES
 # -----------------------------
+@app.route("/")
+def home():
+    return "Password Analyzer API Running"
+
 @app.route("/generate-passphrase", methods=["GET"])
 def passphrase():
     return jsonify({"passphrase": generate_passphrase()})
@@ -43,6 +47,12 @@ def passphrase():
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
+    def analyze():
+    data = request.json
+    password = data.get("password", "")
+    
+    score = len(password)  # simple test logic
+    return jsonify({"score": score})
     data = request.get_json()
     if not data or "password" not in data:
         return jsonify({"error": "Password required"}), 400
